@@ -31,4 +31,4 @@ Once you have completed the workshops you will be absolutely comfortable leverag
 
 # Get your doubts clarified!
 
-In case you come across any errors or queries, reach out to us through this [form](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR2bJ5wYYkfBIq-lJri4HVRxUNERFR1o3S0ZCUlRaVTVCNVlBTTdDTVUyTS4u) 
+In case you come across any errors or queries, reach out to us through this [form](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR2bJ5wYYkfBIq-lJri4HVRxUNERFR1o3S0ZCUlRaVTVCNVlBTTdDTVUyTS4u).
