@@ -1,0 +1,1220 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Create_SAS_URI_by_path_(V2)": {
+                "inputs": {
+                    "body": {
+                        "AccessProtocol": "HttpsOrHttp",
+                        "Permissions": "Read,Write,List,Delete",
+                        "StartTime": "@body('Get_Blob_Metadata_(V2)')?['LastModified']"
+                    },
+                    "host": {
+                        "connection": {
+                            "referenceName": "azureblob_1"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/v2/datasets/@{encodeURIComponent('AccountNameFromSettings')}/CreateSharedLinkByPath",
+                    "queries": {
+                        "path": "@body('Get_Blob_Metadata_(V2)')?['Path']"
+                    }
+                },
+                "runAfter": {
+                    "Get_Blob_Metadata_(V2)": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Get_Blob_Metadata_(V2)": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "referenceName": "azureblob_1"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/files/@{encodeURIComponent(encodeURIComponent('/speech/',triggerOutputs()?['body']?['name']))}"
+                },
+                "runAfter": {
+                    "Reads_Blob_Content_from_Azure_Storage": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Get_transcription": {
+                "inputs": {
+                    "headers": {
+                        "Ocp-Apim-Subscription-Key": "bffaa979abdb4263af5dba1e9ac124b5"
+                    },
+                    "method": "GET",
+                    "uri": "@body('parse_results_to_extract_content_URL')?['links']?['contentUrl']"
+                },
+                "runAfter": {
+                    "parse_results_to_extract_content_URL": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Parse_Headers_STT_API_Call": {
+                "inputs": {
+                    "content": "@outputs('Speech-to-text-transcription')['headers']",
+                    "schema": {
+                        "properties": {
+                            "Cache-Control": {
+                                "type": "string"
+                            },
+                            "Content-Type": {
+                                "type": "string"
+                            },
+                            "Date": {
+                                "type": "string"
+                            },
+                            "Location": {
+                                "type": "string"
+                            },
+                            "Strict-Transport-Security": {
+                                "type": "string"
+                            },
+                            "Transfer-Encoding": {
+                                "type": "string"
+                            },
+                            "api-deprecated-versions": {
+                                "type": "string"
+                            },
+                            "api-supported-versions": {
+                                "type": "string"
+                            },
+                            "apim-request-id": {
+                                "type": "string"
+                            },
+                            "x-content-type-options": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Speech-to-text-transcription": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Parse_get_transcription_body": {
+                "inputs": {
+                    "content": "@body('Get_transcription')",
+                    "schema": {
+                        "properties": {
+                            "combinedRecognizedPhrases": {
+                                "items": {
+                                    "properties": {
+                                        "channel": {
+                                            "type": "integer"
+                                        },
+                                        "display": {
+                                            "type": "string"
+                                        },
+                                        "itn": {
+                                            "type": "string"
+                                        },
+                                        "lexical": {
+                                            "type": "string"
+                                        },
+                                        "maskedITN": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "channel",
+                                        "lexical",
+                                        "itn",
+                                        "maskedITN",
+                                        "display"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            },
+                            "duration": {
+                                "type": "string"
+                            },
+                            "durationInTicks": {
+                                "type": "integer"
+                            },
+                            "recognizedPhrases": {
+                                "items": {
+                                    "properties": {
+                                        "channel": {
+                                            "type": "integer"
+                                        },
+                                        "duration": {
+                                            "type": "string"
+                                        },
+                                        "durationInTicks": {
+                                            "type": "integer"
+                                        },
+                                        "nBest": {
+                                            "items": {
+                                                "properties": {
+                                                    "confidence": {
+                                                        "type": "number"
+                                                    },
+                                                    "display": {
+                                                        "type": "string"
+                                                    },
+                                                    "itn": {
+                                                        "type": "string"
+                                                    },
+                                                    "lexical": {
+                                                        "type": "string"
+                                                    },
+                                                    "maskedITN": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "confidence",
+                                                    "lexical",
+                                                    "itn",
+                                                    "maskedITN",
+                                                    "display"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "offset": {
+                                            "type": "string"
+                                        },
+                                        "offsetInTicks": {
+                                            "type": "integer"
+                                        },
+                                        "recognitionStatus": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "recognitionStatus",
+                                        "channel",
+                                        "offset",
+                                        "duration",
+                                        "offsetInTicks",
+                                        "durationInTicks",
+                                        "nBest"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            },
+                            "source": {
+                                "type": "string"
+                            },
+                            "timestamp": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Get_transcription": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Reads_Blob_Content_from_Azure_Storage": {
+                "inputs": {
+                    "parameters": {
+                        "blobName": "@triggerOutputs()?['body']?['name']",
+                        "containerName": "@triggerOutputs()?['body']?['containerInfo']?['name']"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "AzureBlob",
+                        "operationId": "readBlob",
+                        "serviceProviderId": "/serviceProviders/AzureBlob"
+                    }
+                },
+                "runAfter": {},
+                "type": "ServiceProvider"
+            },
+            "Repeat_till_all_texts_analytics_tasks_are_completed": {
+                "actions": {
+                    "Parse_analytics_result": {
+                        "inputs": {
+                            "content": "@body('get_analytics_results')",
+                            "schema": {
+                                "properties": {
+                                    "createdDateTime": {
+                                        "type": "string"
+                                    },
+                                    "displayName": {
+                                        "type": "string"
+                                    },
+                                    "errors": {
+                                        "type": "array"
+                                    },
+                                    "expirationDateTime": {
+                                        "type": "string"
+                                    },
+                                    "jobId": {
+                                        "type": "string"
+                                    },
+                                    "lastUpdateDateTime": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "tasks": {
+                                        "properties": {
+                                            "completed": {
+                                                "type": "number"
+                                            },
+                                            "entityLinkingTasks": {
+                                                "items": {
+                                                    "properties": {
+                                                        "lastUpdateDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "results": {
+                                                            "properties": {
+                                                                "documents": {
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "entities": {
+                                                                                "items": {
+                                                                                    "properties": {
+                                                                                        "bingId": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "dataSource": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "id": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "language": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "matches": {
+                                                                                            "items": {
+                                                                                                "properties": {
+                                                                                                    "confidenceScore": {
+                                                                                                        "type": "number"
+                                                                                                    },
+                                                                                                    "length": {
+                                                                                                        "type": "number"
+                                                                                                    },
+                                                                                                    "offset": {
+                                                                                                        "type": "number"
+                                                                                                    },
+                                                                                                    "text": {
+                                                                                                        "type": "string"
+                                                                                                    }
+                                                                                                },
+                                                                                                "required": [
+                                                                                                    "text",
+                                                                                                    "offset",
+                                                                                                    "length",
+                                                                                                    "confidenceScore"
+                                                                                                ],
+                                                                                                "type": "object"
+                                                                                            },
+                                                                                            "type": "array"
+                                                                                        },
+                                                                                        "name": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "url": {
+                                                                                            "type": "string"
+                                                                                        }
+                                                                                    },
+                                                                                    "required": [
+                                                                                        "bingId",
+                                                                                        "name",
+                                                                                        "matches",
+                                                                                        "language",
+                                                                                        "id",
+                                                                                        "url",
+                                                                                        "dataSource"
+                                                                                    ],
+                                                                                    "type": "object"
+                                                                                },
+                                                                                "type": "array"
+                                                                            },
+                                                                            "id": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "warnings": {
+                                                                                "type": "array"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "id",
+                                                                            "entities",
+                                                                            "warnings"
+                                                                        ],
+                                                                        "type": "object"
+                                                                    },
+                                                                    "type": "array"
+                                                                },
+                                                                "errors": {
+                                                                    "type": "array"
+                                                                },
+                                                                "modelVersion": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "state": {
+                                                            "type": "string"
+                                                        },
+                                                        "taskName": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "lastUpdateDateTime",
+                                                        "taskName",
+                                                        "state",
+                                                        "results"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "entityRecognitionPiiTasks": {
+                                                "items": {
+                                                    "properties": {
+                                                        "lastUpdateDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "results": {
+                                                            "properties": {
+                                                                "documents": {
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "entities": {
+                                                                                "type": "array"
+                                                                            },
+                                                                            "id": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "redactedText": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "warnings": {
+                                                                                "type": "array"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "redactedText",
+                                                                            "id",
+                                                                            "entities",
+                                                                            "warnings"
+                                                                        ],
+                                                                        "type": "object"
+                                                                    },
+                                                                    "type": "array"
+                                                                },
+                                                                "errors": {
+                                                                    "type": "array"
+                                                                },
+                                                                "modelVersion": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "state": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "lastUpdateDateTime",
+                                                        "state",
+                                                        "results"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "entityRecognitionTasks": {
+                                                "items": {
+                                                    "properties": {
+                                                        "lastUpdateDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "results": {
+                                                            "properties": {
+                                                                "documents": {
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "entities": {
+                                                                                "items": {
+                                                                                    "properties": {
+                                                                                        "category": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "confidenceScore": {
+                                                                                            "type": "number"
+                                                                                        },
+                                                                                        "length": {
+                                                                                            "type": "number"
+                                                                                        },
+                                                                                        "offset": {
+                                                                                            "type": "number"
+                                                                                        },
+                                                                                        "subcategory": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "text": {
+                                                                                            "type": "string"
+                                                                                        }
+                                                                                    },
+                                                                                    "required": [
+                                                                                        "text",
+                                                                                        "category",
+                                                                                        "offset",
+                                                                                        "length",
+                                                                                        "confidenceScore"
+                                                                                    ],
+                                                                                    "type": "object"
+                                                                                },
+                                                                                "type": "array"
+                                                                            },
+                                                                            "id": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "warnings": {
+                                                                                "type": "array"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "id",
+                                                                            "entities",
+                                                                            "warnings"
+                                                                        ],
+                                                                        "type": "object"
+                                                                    },
+                                                                    "type": "array"
+                                                                },
+                                                                "errors": {
+                                                                    "type": "array"
+                                                                },
+                                                                "modelVersion": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "state": {
+                                                            "type": "string"
+                                                        },
+                                                        "taskName": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "lastUpdateDateTime",
+                                                        "taskName",
+                                                        "state",
+                                                        "results"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "extractiveSummarizationTasks": {
+                                                "items": {
+                                                    "properties": {
+                                                        "lastUpdateDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "results": {
+                                                            "properties": {
+                                                                "documents": {
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "sentences": {
+                                                                                "items": {
+                                                                                    "properties": {
+                                                                                        "length": {
+                                                                                            "type": "number"
+                                                                                        },
+                                                                                        "offset": {
+                                                                                            "type": "number"
+                                                                                        },
+                                                                                        "rankScore": {
+                                                                                            "type": "number"
+                                                                                        },
+                                                                                        "text": {
+                                                                                            "type": "string"
+                                                                                        }
+                                                                                    },
+                                                                                    "required": [
+                                                                                        "text",
+                                                                                        "rankScore",
+                                                                                        "offset",
+                                                                                        "length"
+                                                                                    ],
+                                                                                    "type": "object"
+                                                                                },
+                                                                                "type": "array"
+                                                                            },
+                                                                            "warnings": {
+                                                                                "type": "array"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "id",
+                                                                            "sentences",
+                                                                            "warnings"
+                                                                        ],
+                                                                        "type": "object"
+                                                                    },
+                                                                    "type": "array"
+                                                                },
+                                                                "errors": {
+                                                                    "type": "array"
+                                                                },
+                                                                "modelVersion": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "state": {
+                                                            "type": "string"
+                                                        },
+                                                        "taskName": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "lastUpdateDateTime",
+                                                        "taskName",
+                                                        "state",
+                                                        "results"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "failed": {
+                                                "type": "number"
+                                            },
+                                            "inProgress": {
+                                                "type": "number"
+                                            },
+                                            "keyPhraseExtractionTasks": {
+                                                "items": {
+                                                    "properties": {
+                                                        "lastUpdateDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "results": {
+                                                            "properties": {
+                                                                "documents": {
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "keyPhrases": {
+                                                                                "items": {
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "type": "array"
+                                                                            },
+                                                                            "warnings": {
+                                                                                "type": "array"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "id",
+                                                                            "keyPhrases",
+                                                                            "warnings"
+                                                                        ],
+                                                                        "type": "object"
+                                                                    },
+                                                                    "type": "array"
+                                                                },
+                                                                "errors": {
+                                                                    "type": "array"
+                                                                },
+                                                                "modelVersion": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "state": {
+                                                            "type": "string"
+                                                        },
+                                                        "taskName": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "lastUpdateDateTime",
+                                                        "taskName",
+                                                        "state",
+                                                        "results"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "sentimentAnalysisTasks": {
+                                                "items": {
+                                                    "properties": {
+                                                        "lastUpdateDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "results": {
+                                                            "properties": {
+                                                                "documents": {
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "confidenceScores": {
+                                                                                "properties": {
+                                                                                    "negative": {
+                                                                                        "type": "number"
+                                                                                    },
+                                                                                    "neutral": {
+                                                                                        "type": "number"
+                                                                                    },
+                                                                                    "positive": {
+                                                                                        "type": "number"
+                                                                                    }
+                                                                                },
+                                                                                "type": "object"
+                                                                            },
+                                                                            "id": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "sentences": {
+                                                                                "items": {
+                                                                                    "properties": {
+                                                                                        "assessments": {
+                                                                                            "type": "array"
+                                                                                        },
+                                                                                        "confidenceScores": {
+                                                                                            "properties": {
+                                                                                                "negative": {
+                                                                                                    "type": "number"
+                                                                                                },
+                                                                                                "neutral": {
+                                                                                                    "type": "number"
+                                                                                                },
+                                                                                                "positive": {
+                                                                                                    "type": "number"
+                                                                                                }
+                                                                                            },
+                                                                                            "type": "object"
+                                                                                        },
+                                                                                        "length": {
+                                                                                            "type": "number"
+                                                                                        },
+                                                                                        "offset": {
+                                                                                            "type": "number"
+                                                                                        },
+                                                                                        "sentiment": {
+                                                                                            "type": "string"
+                                                                                        },
+                                                                                        "targets": {
+                                                                                            "type": "array"
+                                                                                        },
+                                                                                        "text": {
+                                                                                            "type": "string"
+                                                                                        }
+                                                                                    },
+                                                                                    "required": [
+                                                                                        "sentiment",
+                                                                                        "confidenceScores",
+                                                                                        "offset",
+                                                                                        "length",
+                                                                                        "text",
+                                                                                        "targets",
+                                                                                        "assessments"
+                                                                                    ],
+                                                                                    "type": "object"
+                                                                                },
+                                                                                "type": "array"
+                                                                            },
+                                                                            "sentiment": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "warnings": {
+                                                                                "type": "array"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "id",
+                                                                            "sentiment",
+                                                                            "confidenceScores",
+                                                                            "sentences",
+                                                                            "warnings"
+                                                                        ],
+                                                                        "type": "object"
+                                                                    },
+                                                                    "type": "array"
+                                                                },
+                                                                "errors": {
+                                                                    "type": "array"
+                                                                },
+                                                                "modelVersion": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "state": {
+                                                            "type": "string"
+                                                        },
+                                                        "taskName": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "lastUpdateDateTime",
+                                                        "taskName",
+                                                        "state",
+                                                        "results"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "total": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "runAfter": {
+                            "get_analytics_results": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "ParseJson"
+                    },
+                    "get_analytics_results": {
+                        "inputs": {
+                            "headers": {
+                                "Ocp-Apim-Subscription-Key": "bffaa979abdb4263af5dba1e9ac124b5"
+                            },
+                            "method": "GET",
+                            "uri": "@body('parse_text_analytics_headers')?['operation-location']"
+                        },
+                        "runAfter": {},
+                        "type": "Http"
+                    }
+                },
+                "expression": "@equals(body('Parse_analytics_result')?['tasks']?['completed'], body('Parse_analytics_result')?['tasks']?['total'])",
+                "limit": {
+                    "count": 60,
+                    "timeout": "PT1H"
+                },
+                "runAfter": {
+                    "parse_text_analytics_headers": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Until"
+            },
+            "Speech-to-text-transcription": {
+                "inputs": {
+                    "body": {
+                        "contentUrls": [
+                            "@body('Create_SAS_URI_by_path_(V2)')?['WebUrl']"
+                        ],
+                        "displayName": "Transcription using default model for en-IN",
+                        "locale": "en-IN",
+                        "properties": {
+                            "diarizationEnabled": false,
+                            "profanityFilterMode": "None",
+                            "punctuationMode": "DictatedAndAutomatic",
+                            "wordLevelTimestampsEnabled": false
+                        }
+                    },
+                    "headers": {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Ocp-Apim-Subscription-Key": "bffaa979abdb4263af5dba1e9ac124b5"
+                    },
+                    "method": "POST",
+                    "uri": "https://workathoncognitive.cognitiveservices.azure.com/speechtotext/v3.0/transcriptions?language=en-IN"
+                },
+                "runAfter": {
+                    "Create_SAS_URI_by_path_(V2)": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Until": {
+                "actions": {
+                    "Delay": {
+                        "inputs": {
+                            "interval": {
+                                "count": 30,
+                                "unit": "Second"
+                            }
+                        },
+                        "runAfter": {
+                            "Get_Transcription_Call_1": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "Wait"
+                    },
+                    "Get_Transcription_Call_1": {
+                        "inputs": {
+                            "headers": {
+                                "Ocp-Apim-Subscription-Key": "bffaa979abdb4263af5dba1e9ac124b5"
+                            },
+                            "method": "GET",
+                            "uri": "@{body('Parse_Headers_STT_API_Call')?['Location']}/files"
+                        },
+                        "runAfter": {},
+                        "type": "Http"
+                    },
+                    "Parse_Get_Call_1_Results": {
+                        "inputs": {
+                            "content": "@body('Get_Transcription_Call_1')",
+                            "schema": {
+                                "properties": {
+                                    "values": {
+                                        "items": {
+                                            "properties": {
+                                                "createdDateTime": {
+                                                    "type": "string"
+                                                },
+                                                "kind": {
+                                                    "type": "string"
+                                                },
+                                                "links": {
+                                                    "properties": {
+                                                        "contentUrl": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "properties": {
+                                                    "properties": {
+                                                        "size": {
+                                                            "type": "integer"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "self": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "self",
+                                                "name",
+                                                "kind",
+                                                "properties",
+                                                "createdDateTime",
+                                                "links"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "runAfter": {
+                            "Delay": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "ParseJson"
+                    }
+                },
+                "expression": "@greater(length(body('Parse_Get_Call_1_Results')?['values']), 0)",
+                "limit": {
+                    "count": 5000,
+                    "timeout": "PT8H"
+                },
+                "runAfter": {
+                    "Parse_Headers_STT_API_Call": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Until"
+            },
+            "Uploads_a_Blob_to_Azure_Storage": {
+                "inputs": {
+                    "parameters": {
+                        "blobName": "@concat(triggerOutputs()?['body']?['name'], body('Parse_analytics_result')?['createdDateTime'], '.json')",
+                        "containerName": "speechoutput",
+                        "content": {
+                            "Text": " @{body('parse_transcript')?['display']}",
+                            "Text Analytics": "@body('Parse_analytics_result')"
+                        }
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "AzureBlob",
+                        "operationId": "uploadBlob",
+                        "serviceProviderId": "/serviceProviders/AzureBlob"
+                    }
+                },
+                "runAfter": {
+                    "Repeat_till_all_texts_analytics_tasks_are_completed": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ServiceProvider"
+            },
+            "parse_results_to_extract_content_URL": {
+                "inputs": {
+                    "content": "@last(body('Parse_Get_Call_1_Results')?['values'])",
+                    "schema": {
+                        "properties": {
+                            "createdDateTime": {
+                                "type": "string"
+                            },
+                            "kind": {
+                                "type": "string"
+                            },
+                            "links": {
+                                "properties": {
+                                    "contentUrl": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "properties": {
+                                "properties": {
+                                    "size": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "self": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Until": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "parse_text_analytics_headers": {
+                "inputs": {
+                    "content": "@outputs('text_analytics')['headers']",
+                    "schema": {
+                        "properties": {
+                            "Date": {
+                                "type": "string"
+                            },
+                            "Strict-Transport-Security": {
+                                "type": "string"
+                            },
+                            "Transfer-Encoding": {
+                                "type": "string"
+                            },
+                            "apim-request-id": {
+                                "type": "string"
+                            },
+                            "operation-location": {
+                                "type": "string"
+                            },
+                            "x-content-type-options": {
+                                "type": "string"
+                            },
+                            "x-envoy-upstream-service-time": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "text_analytics": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "parse_transcript": {
+                "inputs": {
+                    "content": "@first(body('Parse_get_transcription_body')?['combinedRecognizedPhrases'])",
+                    "schema": {
+                        "properties": {
+                            "channel": {
+                                "type": "integer"
+                            },
+                            "display": {
+                                "type": "string"
+                            },
+                            "itn": {
+                                "type": "string"
+                            },
+                            "lexical": {
+                                "type": "string"
+                            },
+                            "maskedITN": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Parse_get_transcription_body": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "text_analytics": {
+                "inputs": {
+                    "body": {
+                        "analysisInput": {
+                            "documents": [
+                                {
+                                    "id": "@triggerOutputs()?['body']?['name']",
+                                    "text": "@body('parse_transcript')?['display']"
+                                }
+                            ]
+                        },
+                        "displayName": "My Job",
+                        "tasks": {
+                            "entityLinkingTasks": [
+                                {
+                                    "parameters": {
+                                        "loggingOptOut": false,
+                                        "model-version": "latest",
+                                        "stringIndexType": "TextElement_v8"
+                                    },
+                                    "taskName": "string"
+                                }
+                            ],
+                            "entityRecognitionPiiTasks": [
+                                {
+                                    "parameters": {
+                                        "domain": "none",
+                                        "loggingOptOut": true,
+                                        "model-version": "latest",
+                                        "piiCategories": [
+                                            "ABARoutingNumber"
+                                        ],
+                                        "stringIndexType": "TextElement_v8"
+                                    },
+                                    "taskName": "string"
+                                }
+                            ],
+                            "entityRecognitionTasks": [
+                                {
+                                    "parameters": {
+                                        "loggingOptOut": true,
+                                        "model-version": "latest",
+                                        "stringIndexType": "TextElement_v8"
+                                    },
+                                    "taskName": "string"
+                                }
+                            ],
+                            "extractiveSummarizationTasks": [
+                                {
+                                    "parameters": {
+                                        "loggingOptOut": false,
+                                        "model-version": "latest",
+                                        "sentenceCount": 3,
+                                        "sortBy": "Offset",
+                                        "stringIndexType": "TextElement_v8"
+                                    }
+                                }
+                            ],
+                            "keyPhraseExtractionTasks": [
+                                {
+                                    "parameters": {
+                                        "loggingOptOut": true,
+                                        "model-version": "latest"
+                                    },
+                                    "taskName": "string"
+                                }
+                            ],
+                            "sentimentAnalysisTasks": [
+                                {
+                                    "parameters": {
+                                        "loggingOptOut": false,
+                                        "model-version": "latest",
+                                        "opinionMining": true,
+                                        "stringIndexType": "TextElement_v8"
+                                    },
+                                    "taskName": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "headers": {
+                        "Content-Type": "application/json",
+                        "Ocp-Apim-Subscription-Key": "bffaa979abdb4263af5dba1e9ac124b5"
+                    },
+                    "method": "POST",
+                    "uri": "https://workathoncognitive.cognitiveservices.azure.com/text/analytics/v3.2-preview.1/analyze"
+                },
+                "runAfter": {
+                    "parse_transcript": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "triggers": {
+            "When_a_blob_is_Added_or_Modified_in_Azure_Storage": {
+                "inputs": {
+                    "parameters": {
+                        "path": "speech"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "AzureBlob",
+                        "operationId": "whenABlobIsAddedOrModified",
+                        "serviceProviderId": "/serviceProviders/AzureBlob"
+                    }
+                },
+                "type": "ServiceProvider"
+            }
+        }
+    },
+    "kind": "Stateful"
+}

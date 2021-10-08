@@ -1,0 +1,78 @@
+{
+  "analysisInput": {
+    "documents": [
+      {
+        "id": @{triggerBody()?['body']?['name']},
+        "text": @{body('parse_transcript')?['display']}
+      }
+    ]
+  },
+  "displayName": "My Job",
+  "tasks": {
+    "entityLinkingTasks": [
+      {
+        "parameters": {
+          "loggingOptOut": false,
+          "model-version": "latest",
+          "stringIndexType": "TextElement_v8"
+        },
+        "taskName": "string"
+      }
+    ],
+    "entityRecognitionPiiTasks": [
+      {
+        "parameters": {
+          "domain": "none",
+          "loggingOptOut": true,
+          "model-version": "latest",
+          "piiCategories": [
+            "ABARoutingNumber"
+          ],
+          "stringIndexType": "TextElement_v8"
+        },
+        "taskName": "string"
+      }
+    ],
+    "entityRecognitionTasks": [
+      {
+        "parameters": {
+          "loggingOptOut": true,
+          "model-version": "latest",
+          "stringIndexType": "TextElement_v8"
+        },
+        "taskName": "string"
+      }
+    ],
+    "extractiveSummarizationTasks": [
+      {
+        "parameters": {
+          "loggingOptOut": false,
+          "model-version": "latest",
+          "sentenceCount": 3,
+          "sortBy": "Offset",
+          "stringIndexType": "TextElement_v8"
+        }
+      }
+    ],
+    "keyPhraseExtractionTasks": [
+      {
+        "parameters": {
+          "loggingOptOut": true,
+          "model-version": "latest"
+        },
+        "taskName": "string"
+      }
+    ],
+    "sentimentAnalysisTasks": [
+      {
+        "parameters": {
+          "loggingOptOut": false,
+          "model-version": "latest",
+          "opinionMining": true,
+          "stringIndexType": "TextElement_v8"
+        },
+        "taskName": "string"
+      }
+    ]
+  }
+}

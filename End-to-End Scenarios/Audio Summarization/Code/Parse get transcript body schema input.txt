@@ -1,0 +1,112 @@
+{
+    "properties": {
+        "combinedRecognizedPhrases": {
+            "items": {
+                "properties": {
+                    "channel": {
+                        "type": "integer"
+                    },
+                    "display": {
+                        "type": "string"
+                    },
+                    "itn": {
+                        "type": "string"
+                    },
+                    "lexical": {
+                        "type": "string"
+                    },
+                    "maskedITN": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "channel",
+                    "lexical",
+                    "itn",
+                    "maskedITN",
+                    "display"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "duration": {
+            "type": "string"
+        },
+        "durationInTicks": {
+            "type": "integer"
+        },
+        "recognizedPhrases": {
+            "items": {
+                "properties": {
+                    "channel": {
+                        "type": "integer"
+                    },
+                    "duration": {
+                        "type": "string"
+                    },
+                    "durationInTicks": {
+                        "type": "integer"
+                    },
+                    "nBest": {
+                        "items": {
+                            "properties": {
+                                "confidence": {
+                                    "type": "number"
+                                },
+                                "display": {
+                                    "type": "string"
+                                },
+                                "itn": {
+                                    "type": "string"
+                                },
+                                "lexical": {
+                                    "type": "string"
+                                },
+                                "maskedITN": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "confidence",
+                                "lexical",
+                                "itn",
+                                "maskedITN",
+                                "display"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "offset": {
+                        "type": "string"
+                    },
+                    "offsetInTicks": {
+                        "type": "integer"
+                    },
+                    "recognitionStatus": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "recognitionStatus",
+                    "channel",
+                    "offset",
+                    "duration",
+                    "offsetInTicks",
+                    "durationInTicks",
+                    "nBest"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "source": {
+            "type": "string"
+        },
+        "timestamp": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

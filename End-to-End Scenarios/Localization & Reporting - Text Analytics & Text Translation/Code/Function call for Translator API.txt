@@ -1,0 +1,16 @@
+(text) => let
+apikey = "0c24eeb666024eea8a240f4108986b9b",
+contenttype = "application/json; charset=UTF-8",
+region = "centralindia",
+endpoint = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=hi",
+jsontext = Text.FromBinary(Json.FromValue(Text.Start(Text.Trim(text), 5000))),
+jsonbody = "[{ text: " & jsontext & " }]",
+bytesbody = Text.ToBinary(jsonbody),
+headers = [#"Ocp-Apim-Subscription-Key" = apikey, #"Content-Type" = contenttype, #"Ocp-Apim-Subscription-Region" = region],
+bytesresp = Web.Contents(endpoint, [Headers=headers, Content=bytesbody]),
+jsonresp = Json.Document(bytesresp),
+text2 = (jsonresp{0}[translations]{0}[text])
+in text2
+
+
+

@@ -1,0 +1,558 @@
+{
+    "properties": {
+        "createdDateTime": {
+            "type": "string"
+        },
+        "displayName": {
+            "type": "string"
+        },
+        "errors": {
+            "type": "array"
+        },
+        "expirationDateTime": {
+            "type": "string"
+        },
+        "jobId": {
+            "type": "string"
+        },
+        "lastUpdateDateTime": {
+            "type": "string"
+        },
+        "status": {
+            "type": "string"
+        },
+        "tasks": {
+            "properties": {
+                "completed": {
+                    "type": "number"
+                },
+                "entityLinkingTasks": {
+                    "items": {
+                        "properties": {
+                            "lastUpdateDateTime": {
+                                "type": "string"
+                            },
+                            "results": {
+                                "properties": {
+                                    "documents": {
+                                        "items": {
+                                            "properties": {
+                                                "entities": {
+                                                    "items": {
+                                                        "properties": {
+                                                            "bingId": {
+                                                                "type": "string"
+                                                            },
+                                                            "dataSource": {
+                                                                "type": "string"
+                                                            },
+                                                            "id": {
+                                                                "type": "string"
+                                                            },
+                                                            "language": {
+                                                                "type": "string"
+                                                            },
+                                                            "matches": {
+                                                                "items": {
+                                                                    "properties": {
+                                                                        "confidenceScore": {
+                                                                            "type": "number"
+                                                                        },
+                                                                        "length": {
+                                                                            "type": "number"
+                                                                        },
+                                                                        "offset": {
+                                                                            "type": "number"
+                                                                        },
+                                                                        "text": {
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "required": [
+                                                                        "text",
+                                                                        "offset",
+                                                                        "length",
+                                                                        "confidenceScore"
+                                                                    ],
+                                                                    "type": "object"
+                                                                },
+                                                                "type": "array"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "url": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "bingId",
+                                                            "name",
+                                                            "matches",
+                                                            "language",
+                                                            "id",
+                                                            "url",
+                                                            "dataSource"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "warnings": {
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "entities",
+                                                "warnings"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "errors": {
+                                        "type": "array"
+                                    },
+                                    "modelVersion": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "state": {
+                                "type": "string"
+                            },
+                            "taskName": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "lastUpdateDateTime",
+                            "taskName",
+                            "state",
+                            "results"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "entityRecognitionPiiTasks": {
+                    "items": {
+                        "properties": {
+                            "lastUpdateDateTime": {
+                                "type": "string"
+                            },
+                            "results": {
+                                "properties": {
+                                    "documents": {
+                                        "items": {
+                                            "properties": {
+                                                "entities": {
+                                                    "type": "array"
+                                                },
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "redactedText": {
+                                                    "type": "string"
+                                                },
+                                                "warnings": {
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "redactedText",
+                                                "id",
+                                                "entities",
+                                                "warnings"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "errors": {
+                                        "type": "array"
+                                    },
+                                    "modelVersion": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "state": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "lastUpdateDateTime",
+                            "state",
+                            "results"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "entityRecognitionTasks": {
+                    "items": {
+                        "properties": {
+                            "lastUpdateDateTime": {
+                                "type": "string"
+                            },
+                            "results": {
+                                "properties": {
+                                    "documents": {
+                                        "items": {
+                                            "properties": {
+                                                "entities": {
+                                                    "items": {
+                                                        "properties": {
+                                                            "category": {
+                                                                "type": "string"
+                                                            },
+                                                            "confidenceScore": {
+                                                                "type": "number"
+                                                            },
+                                                            "length": {
+                                                                "type": "number"
+                                                            },
+                                                            "offset": {
+                                                                "type": "number"
+                                                            },
+                                                            "subcategory": {
+                                                                "type": "string"
+                                                            },
+                                                            "text": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "text",
+                                                            "category",
+                                                            "offset",
+                                                            "length",
+                                                            "confidenceScore"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "warnings": {
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "entities",
+                                                "warnings"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "errors": {
+                                        "type": "array"
+                                    },
+                                    "modelVersion": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "state": {
+                                "type": "string"
+                            },
+                            "taskName": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "lastUpdateDateTime",
+                            "taskName",
+                            "state",
+                            "results"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "extractiveSummarizationTasks": {
+                    "items": {
+                        "properties": {
+                            "lastUpdateDateTime": {
+                                "type": "string"
+                            },
+                            "results": {
+                                "properties": {
+                                    "documents": {
+                                        "items": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "sentences": {
+                                                    "items": {
+                                                        "properties": {
+                                                            "length": {
+                                                                "type": "number"
+                                                            },
+                                                            "offset": {
+                                                                "type": "number"
+                                                            },
+                                                            "rankScore": {
+                                                                "type": "number"
+                                                            },
+                                                            "text": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "text",
+                                                            "rankScore",
+                                                            "offset",
+                                                            "length"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "warnings": {
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "sentences",
+                                                "warnings"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "errors": {
+                                        "type": "array"
+                                    },
+                                    "modelVersion": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "state": {
+                                "type": "string"
+                            },
+                            "taskName": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "lastUpdateDateTime",
+                            "taskName",
+                            "state",
+                            "results"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "failed": {
+                    "type": "number"
+                },
+                "inProgress": {
+                    "type": "number"
+                },
+                "keyPhraseExtractionTasks": {
+                    "items": {
+                        "properties": {
+                            "lastUpdateDateTime": {
+                                "type": "string"
+                            },
+                            "results": {
+                                "properties": {
+                                    "documents": {
+                                        "items": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "keyPhrases": {
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "warnings": {
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "keyPhrases",
+                                                "warnings"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "errors": {
+                                        "type": "array"
+                                    },
+                                    "modelVersion": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "state": {
+                                "type": "string"
+                            },
+                            "taskName": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "lastUpdateDateTime",
+                            "taskName",
+                            "state",
+                            "results"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "sentimentAnalysisTasks": {
+                    "items": {
+                        "properties": {
+                            "lastUpdateDateTime": {
+                                "type": "string"
+                            },
+                            "results": {
+                                "properties": {
+                                    "documents": {
+                                        "items": {
+                                            "properties": {
+                                                "confidenceScores": {
+                                                    "properties": {
+                                                        "negative": {
+                                                            "type": "number"
+                                                        },
+                                                        "neutral": {
+                                                            "type": "number"
+                                                        },
+                                                        "positive": {
+                                                            "type": "number"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "sentences": {
+                                                    "items": {
+                                                        "properties": {
+                                                            "assessments": {
+                                                                "type": "array"
+                                                            },
+                                                            "confidenceScores": {
+                                                                "properties": {
+                                                                    "negative": {
+                                                                        "type": "number"
+                                                                    },
+                                                                    "neutral": {
+                                                                        "type": "number"
+                                                                    },
+                                                                    "positive": {
+                                                                        "type": "number"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "length": {
+                                                                "type": "number"
+                                                            },
+                                                            "offset": {
+                                                                "type": "number"
+                                                            },
+                                                            "sentiment": {
+                                                                "type": "string"
+                                                            },
+                                                            "targets": {
+                                                                "type": "array"
+                                                            },
+                                                            "text": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "sentiment",
+                                                            "confidenceScores",
+                                                            "offset",
+                                                            "length",
+                                                            "text",
+                                                            "targets",
+                                                            "assessments"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "sentiment": {
+                                                    "type": "string"
+                                                },
+                                                "warnings": {
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "sentiment",
+                                                "confidenceScores",
+                                                "sentences",
+                                                "warnings"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "errors": {
+                                        "type": "array"
+                                    },
+                                    "modelVersion": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "state": {
+                                "type": "string"
+                            },
+                            "taskName": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "lastUpdateDateTime",
+                            "taskName",
+                            "state",
+                            "results"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "total": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "type": "object"
+}
