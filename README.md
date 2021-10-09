@@ -26,7 +26,7 @@ Once you have completed the workshops you will be absolutely comfortable leverag
 
 ## Start exploring the AI-ML services
 1.	Start by exploring the standalone services first. Explore & try out each feature as shown in the workshop. 
-2.	Perform the Homework exercises
+2.	Perform the Homework exercises.
 3.	Move to the End-to-End use cases. Make sure to have explored the standalone services prior to starting off with exploring the End-to-End workshops since these have been built considering that you are comfortable with the workflow of the cognitive Service in silos.
 
 # Get your doubts clarified!
