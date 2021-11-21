@@ -35,4 +35,4 @@ In case you come across any errors or queries, reach out to us through this [for
 
 # Share your Feedback for the HOL
 
-PLease share your Feedback on the HOL through this [form] (https://forms.office.com/Pages/DesignPage.aspx?fragment=FormId%3Dv4j5cvGGr0GRqy180BHbR2bJ5wYYkfBIq-lJri4HVRxUNUpaOENEOFg5SVBaNkNSRkVHNlFOWTY2Vy4u%26Token%3D75ad284d3d7b4bcfb0c5af0037baf637).
+PLease share your Feedback on the HOL through this [form](https://forms.office.com/Pages/DesignPage.aspx?fragment=FormId%3Dv4j5cvGGr0GRqy180BHbR2bJ5wYYkfBIq-lJri4HVRxUNUpaOENEOFg5SVBaNkNSRkVHNlFOWTY2Vy4u%26Token%3D75ad284d3d7b4bcfb0c5af0037baf637).
