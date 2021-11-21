@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "cf376a26-a522-4e68-9cd9-39e4abece259",
+		"name": "QnAMaker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "qnamaker",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{qnakey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"question\":\"potter birth day\",\r\n    \"answerSpanRequest\": {\r\n        \"enable\": true\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "{{qna}}/knowledgebases/7f86ed34-9bb4-4b75-8e2f-4d49cbed3ddd/generateAnswer",
+					"host": [
+						"{{qna}}"
+					],
+					"path": [
+						"knowledgebases",
+						"7f86ed34-9bb4-4b75-8e2f-4d49cbed3ddd",
+						"generateAnswer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
