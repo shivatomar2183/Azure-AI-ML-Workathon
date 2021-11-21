@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "5db77dcf-242e-4dfb-967d-710ebb2fbe8d",
+		"name": "ComputerVision-OCR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ocr-read-pdf",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"url\":\"https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf\"}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/vision/v3.2/read/analyze?language=en&pages=1&readingOrder=natural",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"vision",
+						"v3.2",
+						"read",
+						"analyze"
+					],
+					"query": [
+						{
+							"key": "language",
+							"value": "en"
+						},
+						{
+							"key": "pages",
+							"value": "1"
+						},
+						{
+							"key": "readingOrder",
+							"value": "natural"
+						},
+						{
+							"key": "model-version",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ocr-get-pdf-result",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://workathoncognitive.cognitiveservices.azure.com/vision/v3.2/read/analyzeResults/44a22252-9976-4633-ac76-6bf3d0133284",
+					"protocol": "https",
+					"host": [
+						"workathoncognitive",
+						"cognitiveservices",
+						"azure",
+						"com"
+					],
+					"path": [
+						"vision",
+						"v3.2",
+						"read",
+						"analyzeResults",
+						"44a22252-9976-4633-ac76-6bf3d0133284"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ocr-read-image",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"url\":\"https://www.brightbits.co/wp-content/uploads/2019/05/lipsum.png\"}\r\n//{\"url\":\"https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/images/ocr-demo.gif\"}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/vision/v3.2/read/analyze?language=en&pages=1&readingOrder=natural",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"vision",
+						"v3.2",
+						"read",
+						"analyze"
+					],
+					"query": [
+						{
+							"key": "language",
+							"value": "en"
+						},
+						{
+							"key": "pages",
+							"value": "1"
+						},
+						{
+							"key": "readingOrder",
+							"value": "natural"
+						},
+						{
+							"key": "model-version",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ocr-get-image-result",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://workathoncognitive.cognitiveservices.azure.com/vision/v3.2/read/analyzeResults/82a5b33f-6863-4f9b-9851-5e76d89ed069",
+					"protocol": "https",
+					"host": [
+						"workathoncognitive",
+						"cognitiveservices",
+						"azure",
+						"com"
+					],
+					"path": [
+						"vision",
+						"v3.2",
+						"read",
+						"analyzeResults",
+						"82a5b33f-6863-4f9b-9851-5e76d89ed069"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ocr-read-image-handwritten",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "//{\"url\":\"https://static.docsity.com/documents_first_pages/2020/10/29/f5c2212021afda2c86e6bfda2c56a96f.png\"}\r\n{\"url\":\"https://www.cufonfonts.com/images/thumb/53581/loremipsum-2-741x415-8d2ac2cab6.jpg\"}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/vision/v3.2/read/analyze?language=en&pages=1&readingOrder=natural",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"vision",
+						"v3.2",
+						"read",
+						"analyze"
+					],
+					"query": [
+						{
+							"key": "language",
+							"value": "en"
+						},
+						{
+							"key": "pages",
+							"value": "1"
+						},
+						{
+							"key": "readingOrder",
+							"value": "natural"
+						},
+						{
+							"key": "model-version",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ocr-get-image-handwritten-result",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://workathoncognitive.cognitiveservices.azure.com/vision/v3.2/read/analyzeResults/a1baa412-77e9-41ec-b131-c4bd0623c3c6",
+					"protocol": "https",
+					"host": [
+						"workathoncognitive",
+						"cognitiveservices",
+						"azure",
+						"com"
+					],
+					"path": [
+						"vision",
+						"v3.2",
+						"read",
+						"analyzeResults",
+						"a1baa412-77e9-41ec-b131-c4bd0623c3c6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

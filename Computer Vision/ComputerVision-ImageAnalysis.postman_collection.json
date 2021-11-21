@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "ea93342b-e684-498a-95ad-83b5711133f5",
+		"name": "ComputerVision-ImageAnalysis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ImageAnalysis",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"url\":\"https://images.indianexpress.com/2015/07/satya-nadela.jpg\"}\r\n//{\"url\":\"https://mspoweruser.com/wp-content/uploads/2016/02/0-1357.jpg\"}\r\n//{\"url\":\"https://content.fortune.com/wp-content/uploads/2014/10/unnamed-16.jpg\"}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/vision/v3.2/analyze?visualFeatures=Objects,Brands,Color,Tags,Description&details=Celebrities&language=en",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"vision",
+						"v3.2",
+						"analyze"
+					],
+					"query": [
+						{
+							"key": "visualFeatures",
+							"value": "Objects,Brands,Color,Tags,Description"
+						},
+						{
+							"key": "details",
+							"value": "Celebrities"
+						},
+						{
+							"key": "language",
+							"value": "en"
+						},
+						{
+							"key": "model-version",
+							"value": "latest",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Thumbnail",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"url\":\"https://images.indianexpress.com/2015/07/satya-nadela.jpg\"}\r\n"
+				},
+				"url": {
+					"raw": "{{endpoint}}/vision/v3.2/generateThumbnail?width=70&height=50&smartCropping=true",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"vision",
+						"v3.2",
+						"generateThumbnail"
+					],
+					"query": [
+						{
+							"key": "width",
+							"value": "70"
+						},
+						{
+							"key": "height",
+							"value": "50"
+						},
+						{
+							"key": "smartCropping",
+							"value": "true"
+						},
+						{
+							"key": "model-version",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Area of Interest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"url\" : \"https://images.indianexpress.com/2015/07/satya-nadela.jpg\"}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/vision/v3.2/areaOfInterest",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"vision",
+						"v3.2",
+						"areaOfInterest"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
