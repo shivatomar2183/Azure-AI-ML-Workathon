@@ -1,0 +1,448 @@
+{
+	"info": {
+		"_postman_id": "53d482e3-5619-4438-84a5-7ad7c14c0e89",
+		"name": "Speech",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "STT real time (60s max input)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "audio/wav",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "/C:/Users/ankau/Downloads/recording1.wav"
+					}
+				},
+				"url": {
+					"raw": "https://westus.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=en-IN",
+					"protocol": "https",
+					"host": [
+						"westus",
+						"stt",
+						"speech",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"speech",
+						"recognition",
+						"conversation",
+						"cognitiveservices",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "language",
+							"value": "en-IN"
+						},
+						{
+							"key": "format",
+							"value": "detailed",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create transcription",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"contentUrls\": [\r\n    \"https://workathonstorage.blob.core.windows.net/speech/recording1.wav?sp=r&st=2021-09-26T11:22:15Z&se=2022-06-29T19:22:15Z&spr=https&sv=2020-08-04&sr=b&sig=GwIkjTrykF8m5otiIft3gTd1YqzQe1vkrCQX%2FN%2BGSQI%3D\"\r\n  ],\r\n  \"displayName\": \"Transcription using default model for en-IN\",\r\n  \"locale\": \"en-IN\",\r\n  \"properties\": {\r\n    \"diarizationEnabled\": false,\r\n    \"profanityFilterMode\": \"None\",\r\n    \"punctuationMode\": \"DictatedAndAutomatic\",\r\n    \"wordLevelTimestampsEnabled\": false\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/speechtotext/v3.0/transcriptions?format=detailed&language=en-IN",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"speechtotext",
+						"v3.0",
+						"transcriptions"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "detailed"
+						},
+						{
+							"key": "language",
+							"value": "en-IN"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get transcription",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://workathoncognitive.cognitiveservices.azure.com/speechtotext/v3.0/transcriptions/d1b15702-42fd-4865-96bd-5384d8d368fc/files",
+					"protocol": "https",
+					"host": [
+						"workathoncognitive",
+						"cognitiveservices",
+						"azure",
+						"com"
+					],
+					"path": [
+						"speechtotext",
+						"v3.0",
+						"transcriptions",
+						"d1b15702-42fd-4865-96bd-5384d8d368fc",
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get transcription Content",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://spsvcprodusw.blob.core.windows.net/bestor-338cca94-e7c5-4fc1-8a7b-7b8c19fd291a/TranscriptionData/b1ff4b3c-25de-4795-8bfe-cd22c8daf398_0_0.json?sv=2020-08-04&st=2021-09-26T11%3A18%3A07Z&se=2021-09-26T23%3A23%3A07Z&sr=b&sp=rl&sig=E8OvOte2%2BYTp0PbUM03OZAL9ovOlduSjbdKPFlroXAM%3D",
+					"protocol": "https",
+					"host": [
+						"spsvcprodusw",
+						"blob",
+						"core",
+						"windows",
+						"net"
+					],
+					"path": [
+						"bestor-338cca94-e7c5-4fc1-8a7b-7b8c19fd291a",
+						"TranscriptionData",
+						"b1ff4b3c-25de-4795-8bfe-cd22c8daf398_0_0.json"
+					],
+					"query": [
+						{
+							"key": "sv",
+							"value": "2020-08-04"
+						},
+						{
+							"key": "st",
+							"value": "2021-09-26T11%3A18%3A07Z"
+						},
+						{
+							"key": "se",
+							"value": "2021-09-26T23%3A23%3A07Z"
+						},
+						{
+							"key": "sr",
+							"value": "b"
+						},
+						{
+							"key": "sp",
+							"value": "rl"
+						},
+						{
+							"key": "sig",
+							"value": "E8OvOte2%2BYTp0PbUM03OZAL9ovOlduSjbdKPFlroXAM%3D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "STT - Pronunciation Assessment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "audio/wav;charset=UTF-8; samplerate=16000",
+						"type": "text"
+					},
+					{
+						"key": "Pronunciation-Assessment",
+						"value": "eyJSZWZlcmVuY2VUZXh0IjoiQW55IGRvbWFpbiB0b2RheSBidXNpbmVzcyBkb21haW4gYmUgaXQgbWFya2V0aW5nIGJlIGl0IHNhbGVzIGJlIGl0IFlvdSBrbm93IHdvcmtmb3JjZSBtYW5hZ2VtZW50IG9yIGZpbmFuY2Ugb3Igb3BlcmF0aW9ucyBvZiBzZXJ2aWNlcyBldmVyeXdoZXJlIHBlb3BsZSB3YW50IHRvIGFuYWx5emUgdGhlIGRhdGEiLCJHcmFkaW5nU3lzdGVtIjoiSHVuZHJlZE1hcmsiLCJEaW1lbnNpb24iOiJDb21wcmVoZW5zaXZlIn0=",
+						"type": "text"
+					},
+					{
+						"key": "Expect",
+						"value": "100-continue",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Transfer-Encoding",
+						"value": "chunked",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Connection",
+						"value": "Keep-Alive",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "codecs",
+						"value": "audio/pcm",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;text/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "/C:/Users/ankau/Downloads/recording1.wav"
+					}
+				},
+				"url": {
+					"raw": "https://westus.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=en-US&format=detailed HTTP/1.1",
+					"protocol": "https",
+					"host": [
+						"westus",
+						"stt",
+						"speech",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"speech",
+						"recognition",
+						"conversation",
+						"cognitiveservices",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "language",
+							"value": "en-US"
+						},
+						{
+							"key": "format",
+							"value": "detailed HTTP/1.1"
+						},
+						{
+							"key": null,
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Custom Speech Model - Yoga",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "audio/wav;charset=UTF-8; samplerate=16000",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "/C:/Users/ankau/Downloads/yogatestsample2_1.wav"
+					}
+				},
+				"url": {
+					"raw": "https://westus.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?cid=9f60da5d-8421-4308-a173-ea1a7f256ec1",
+					"protocol": "https",
+					"host": [
+						"westus",
+						"stt",
+						"speech",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"speech",
+						"recognition",
+						"conversation",
+						"cognitiveservices",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "cid",
+							"value": "9f60da5d-8421-4308-a173-ea1a7f256ec1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Text to speech",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/ssml+xml"
+					},
+					{
+						"key": "X-Microsoft-OutputFormat",
+						"value": "audio-24khz-160kbitrate-mono-mp3"
+					},
+					{
+						"key": "User-Agent",
+						"value": "curl",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<speak version='1.0' xml:lang='en-US'><voice xml:lang='en-US' xml:gender='Female'\r\n    name='en-US-AriaNeural'>\r\nNamaskar. Today we are talking on diabetes. Diabetes is a degenerative disease. It is going to affect the whole system. Every organ of our body suffers because of diabetes. There are two types of diabetes. One which you are born with, juvenile. You can't do anything except supplying insulin to your body. So, every time insulin shots are given. This is the only management. Other type of diabetes is called stress diabetes. That's the diabetes which comes after the age of 30, 40, 50, and so on. Where our life style is very much responsible. We somehow live a life which is more stressful. We sit for long and do so many wrong things. We drink alcohol, smoke and so on and the whole body suffers, because of which diabetes sets in. So, let's understand what we should do regularly to prevent and to manage diabetes. First is walking. We believe a lot yogis would always say that person must walk. Morning 45 minutes of walk and evening half an hour of walk is a must. It would keep a person healthy. In the House also, instead of sitting for long or in the office sitting for long, every one hour just little bit move, walk. Don't stay in one position. It would help cardiac patients and diabetic patients as well. So whenever possible, sit with legs up or cross legs that would help. Even on chair try to put at least one leg up and see that you are flexible in your limbs. But there is an aasan which is called as<break time=\"275ms\" /> <prosody rate=\"-10.00%\"><phoneme alphabet=\"ipa\" ph=\"utkətaasən\">utkataasan</phoneme></prosody> in yoga. So here keep your feet little away from each other, 1 foot distance parallel. While inhaling, raise your both arms up and simultaneously raise on your toes. Your heels are up. While exhaling squat down slowly and completely. So your heels are up and you're on your toes.\r\n</voice></speak>"
+				},
+				"url": {
+					"raw": "https://westus.tts.speech.microsoft.com/cognitiveservices/v1",
+					"protocol": "https",
+					"host": [
+						"westus",
+						"tts",
+						"speech",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"cognitiveservices",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
