@@ -1,0 +1,606 @@
+{
+	"info": {
+		"_postman_id": "0596b89f-1577-4c80-8c3a-03cfe5d65872",
+		"name": "FaceAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create-PersonGroup",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"workathongrp\",\r\n    \"userData\": \"this is the master person group\",\r\n    \"recognitionModel\": \"recognition_04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/persongroups/workathongrp",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"workathongrp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-Person1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"keanu\",\r\n    \"userData\": \"Adding person 1 in the persongroup workathongrp\"\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/persongroups/workathongrp/persons",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"workathongrp",
+						"persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-Person2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"scarjo\",\r\n    \"userData\": \"Adding person 2 in the persongroup workathongrp\"\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/persongroups/workathongrp/persons",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"workathongrp",
+						"persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-Person",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/persongroups/workathongrp/persons/a9bb68dd-a2a7-4224-a70c-0efbb1d54afd",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"workathongrp",
+						"persons",
+						"a9bb68dd-a2a7-4224-a70c-0efbb1d54afd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list persons in persongroup",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/persongroups/workathongrp/persons?start=&top=",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"workathongrp",
+						"persons"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": ""
+						},
+						{
+							"key": "top",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-Face1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://workathonstorage.blob.core.windows.net/faceapi/training/Keanu/keanu4.jpg\"\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/persongroups/workathongrp/persons/4bbec562-f0fb-4a8d-9c6c-580811a64c6d/persistedFaces?userData=\"person1 face4\"&detectionModel=detection_03",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"workathongrp",
+						"persons",
+						"4bbec562-f0fb-4a8d-9c6c-580811a64c6d",
+						"persistedFaces"
+					],
+					"query": [
+						{
+							"key": "userData",
+							"value": "\"person1 face4\""
+						},
+						{
+							"key": "targetFace",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "detectionModel",
+							"value": "detection_03"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-Face2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://workathonstorage.blob.core.windows.net/faceapi/training/scarjo/Johansson4.jpg\"\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/persongroups/workathongrp/persons/37f63b05-1485-4325-9451-497078a27eab/persistedFaces?userData=\"person2 face4\"&detectionModel=detection_03",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"workathongrp",
+						"persons",
+						"37f63b05-1485-4325-9451-497078a27eab",
+						"persistedFaces"
+					],
+					"query": [
+						{
+							"key": "userData",
+							"value": "\"person2 face4\""
+						},
+						{
+							"key": "targetFace",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "detectionModel",
+							"value": "detection_03"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Train-PersonGroup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/persongroups/workathongrp/train",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"workathongrp",
+						"train"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-TrainingStatus",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/persongroups/workathongrp/training",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"workathongrp",
+						"training"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Detect-Face",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    //\"url\": \"https://workathonstorage.blob.core.windows.net/faceapi/test/Johanssontest.jpg\"\r\n    \"url\" : \"https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_.jpg\"\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=true&returnFaceAttributes=age, gender, headPose, smile, facialHair, glasses, emotion, hair, makeup, occlusion, accessories, blur, exposure, noise&recognitionModel=recognition_04&detectionModel=detection_01&faceIdTimeToLive=86400&returnRecognitionModel=true",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"detect"
+					],
+					"query": [
+						{
+							"key": "returnFaceId",
+							"value": "true"
+						},
+						{
+							"key": "returnFaceLandmarks",
+							"value": "true"
+						},
+						{
+							"key": "returnFaceAttributes",
+							"value": "age, gender, headPose, smile, facialHair, glasses, emotion, hair, makeup, occlusion, accessories, blur, exposure, noise"
+						},
+						{
+							"key": "recognitionModel",
+							"value": "recognition_04"
+						},
+						{
+							"key": "detectionModel",
+							"value": "detection_01"
+						},
+						{
+							"key": "faceIdTimeToLive",
+							"value": "86400"
+						},
+						{
+							"key": "returnRecognitionModel",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Identify-Face",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"PersonGroupId\": \"workathongrp\",\r\n    \"faceIds\": [\r\n        \"281abb32-9b57-478a-8b26-cb97bd634e83\"\r\n    ],\r\n    \"maxNumOfCandidatesReturned\": 1,\r\n    \"confidenceThreshold\": 0.5\r\n}\r\n\r\n\r\n"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/identify",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"identify"
+					],
+					"query": [
+						{
+							"key": "returnFaceId",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "returnFaceLandmarks",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "returnFaceAttributes",
+							"value": "age, gender, headPose, smile, facialHair, glasses, emotion, hair, makeup, occlusion, accessories, blur, exposure, noise",
+							"disabled": true
+						},
+						{
+							"key": "recognitionModel",
+							"value": "recognition_04",
+							"disabled": true
+						},
+						{
+							"key": "returnRecognitionModel",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "detectionModel",
+							"value": "detection_03",
+							"disabled": true
+						},
+						{
+							"key": "faceIdTimeToLive",
+							"value": "86400",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify-Face",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"faceId\": \"281abb32-9b57-478a-8b26-cb97bd634e83\",\r\n    \"personId\": \"37f63b05-1485-4325-9451-497078a27eab\",\r\n    \"PersonGroupId\": \"workathongrp\"\r\n}\r\n\r\n\r\n"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/verify",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"verify"
+					],
+					"query": [
+						{
+							"key": "returnFaceId",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "returnFaceLandmarks",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "returnFaceAttributes",
+							"value": "age, gender, headPose, smile, facialHair, glasses, emotion, hair, makeup, occlusion, accessories, blur, exposure, noise",
+							"disabled": true
+						},
+						{
+							"key": "recognitionModel",
+							"value": "recognition_04",
+							"disabled": true
+						},
+						{
+							"key": "returnRecognitionModel",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "detectionModel",
+							"value": "detection_03",
+							"disabled": true
+						},
+						{
+							"key": "faceIdTimeToLive",
+							"value": "86400",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

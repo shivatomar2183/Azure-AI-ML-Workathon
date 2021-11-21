@@ -1,0 +1,472 @@
+{
+	"info": {
+		"_postman_id": "f9650e77-b75e-4b65-b258-cb5515947d50",
+		"name": "FaceAPI-PersonDirectory",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create-Person1-for-directory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"dir-keanu\",\r\n    \"userData\": \"Adding person 1 in the person directory\"\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0-preview/persons",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0-preview",
+						"persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-Person2-for-directory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"dir-scarjo\",\r\n    \"userData\": \"Adding person 2 in the person directory\"\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0-preview/persons",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0-preview",
+						"persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-Person",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0-preview/persons/f7c311ad-5dcc-4aa5-a750-af43073ca3d3",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0-preview",
+						"persons",
+						"f7c311ad-5dcc-4aa5-a750-af43073ca3d3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list persons in person directory",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0-preview/persons?start=&top=",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0-preview",
+						"persons"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": ""
+						},
+						{
+							"key": "top",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-Face-person1-for-Directory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://workathonstorage.blob.core.windows.net/faceapi/training/Keanu/keanu4.jpg\"\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0-preview/persons/fe881ca6-9cf2-4ab4-a681-db89910b44eb/recognitionModels/recognition_03/persistedFaces?userData=\"person1 face4\"&detectionModel=detection_03",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0-preview",
+						"persons",
+						"fe881ca6-9cf2-4ab4-a681-db89910b44eb",
+						"recognitionModels",
+						"recognition_03",
+						"persistedFaces"
+					],
+					"query": [
+						{
+							"key": "userData",
+							"value": "\"person1 face4\""
+						},
+						{
+							"key": "targetFace",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "detectionModel",
+							"value": "detection_03"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-Face-person2-for-Directory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://workathonstorage.blob.core.windows.net/faceapi/training/scarjo/Johansson4.jpg\"\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0-preview/persons/5c6efd49-1f66-45b3-b56c-046d189070e0/recognitionModels/recognition_03/persistedFaces?userData=\"person2 face4\"&detectionModel=detection_03",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0-preview",
+						"persons",
+						"5c6efd49-1f66-45b3-b56c-046d189070e0",
+						"recognitionModels",
+						"recognition_03",
+						"persistedFaces"
+					],
+					"query": [
+						{
+							"key": "userData",
+							"value": "\"person2 face4\""
+						},
+						{
+							"key": "targetFace",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "detectionModel",
+							"value": "detection_03"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Detect-Face",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://workathonstorage.blob.core.windows.net/faceapi/test/Johanssontest.jpg\"\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=true&recognitionModel=recognition_04&returnRecognitionModel=true&detectionModel=detection_03&faceIdTimeToLive=86400",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"detect"
+					],
+					"query": [
+						{
+							"key": "returnFaceId",
+							"value": "true"
+						},
+						{
+							"key": "returnFaceLandmarks",
+							"value": "true"
+						},
+						{
+							"key": "returnFaceAttributes",
+							"value": "age, gender, headPose, smile, facialHair, glasses, emotion, hair, makeup, occlusion, accessories, blur, exposure, noise",
+							"disabled": true
+						},
+						{
+							"key": "recognitionModel",
+							"value": "recognition_04"
+						},
+						{
+							"key": "returnRecognitionModel",
+							"value": "true"
+						},
+						{
+							"key": "detectionModel",
+							"value": "detection_03"
+						},
+						{
+							"key": "faceIdTimeToLive",
+							"value": "86400"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Identify-Face",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"faceIds\": [\"5629dae4-067e-4707-93b7-d74c391cbb9a\"],\r\n    \"personIds\": [\"*\"]\r\n//    \"maxNumOfCandidatesReturned\": 1,\r\n//    \"confidenceThreshold\"\": 0.5\r\n}\r\n\r\n\r\n"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0-preview/identify",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0-preview",
+						"identify"
+					],
+					"query": [
+						{
+							"key": "returnFaceId",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "returnFaceLandmarks",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "returnFaceAttributes",
+							"value": "age, gender, headPose, smile, facialHair, glasses, emotion, hair, makeup, occlusion, accessories, blur, exposure, noise",
+							"disabled": true
+						},
+						{
+							"key": "recognitionModel",
+							"value": "recognition_04",
+							"disabled": true
+						},
+						{
+							"key": "returnRecognitionModel",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "detectionModel",
+							"value": "detection_03",
+							"disabled": true
+						},
+						{
+							"key": "faceIdTimeToLive",
+							"value": "86400",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify-Face",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"faceId\": \"5629dae4-067e-4707-93b7-d74c391cbb9a\",\r\n    \"personId\": \"5c6efd49-1f66-45b3-b56c-046d189070e0\"\r\n//    \"maxNumOfCandidatesReturned\": 1,\r\n//    \"confidenceThreshold\"\": 0.5\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{endpoint}}/face/v1.0-preview/verify",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"face",
+						"v1.0-preview",
+						"verify"
+					],
+					"query": [
+						{
+							"key": "returnFaceId",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "returnFaceLandmarks",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "returnFaceAttributes",
+							"value": "age, gender, headPose, smile, facialHair, glasses, emotion, hair, makeup, occlusion, accessories, blur, exposure, noise",
+							"disabled": true
+						},
+						{
+							"key": "recognitionModel",
+							"value": "recognition_04",
+							"disabled": true
+						},
+						{
+							"key": "returnRecognitionModel",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "detectionModel",
+							"value": "detection_03",
+							"disabled": true
+						},
+						{
+							"key": "faceIdTimeToLive",
+							"value": "86400",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
