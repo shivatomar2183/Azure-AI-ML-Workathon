@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "fca6e173-0752-43fd-9ad7-98279aeb6cd3",
+		"name": "CustomVision",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ImageClassification",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Prediction-Key",
+						"value": "1ae57f90023f40c69ade3eab6c775fc5",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/octet-stream",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": "/C:/Users/ankau/Downloads/IMG_7825.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://shcustomvisiondemo-pred.cognitiveservices.azure.com/customvision/v3.0/Prediction/b7e1138f-0e4f-42ca-8fd8-f3615d5a0ea7/classify/iterations/workathon-kidslearning-port/image",
+					"protocol": "https",
+					"host": [
+						"shcustomvisiondemo-pred",
+						"cognitiveservices",
+						"azure",
+						"com"
+					],
+					"path": [
+						"customvision",
+						"v3.0",
+						"Prediction",
+						"b7e1138f-0e4f-42ca-8fd8-f3615d5a0ea7",
+						"classify",
+						"iterations",
+						"workathon-kidslearning-port",
+						"image"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
