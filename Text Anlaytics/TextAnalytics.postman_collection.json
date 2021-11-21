@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "35e8f8db-d832-454f-b817-c9c78bdef15c",
+		"name": "TextAnalytics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SubmitText-for-Analysis - sentiment, PII, KeyPhrase, NER, Summary",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"displayName\": \"My Job\",\r\n    \"analysisInput\": {\r\n        \"documents\": [\r\n            {\r\n                \"id\": \"doc1\",\r\n                \"text\": \"I bought this watch for my husband, but didn't take the time to read the description carefully.  So it's my fault I had to send it back. He is in the Army and leaving soon for Iraq.  I thought this sturdy watch would be a perfect gift.  Unfortunately it does not work if you're more than 2,000 miles from Colorado. If you are not going to leave the continental United States I suppose it would be a good watch.\"\r\n            }\r\n        ]\r\n    },\r\n\"tasks\": {\r\n    \"entityRecognitionTasks\": [\r\n      {\r\n        \"parameters\": {\r\n          \"model-version\": \"latest\",\r\n          \"loggingOptOut\": true,\r\n          \"stringIndexType\": \"TextElement_v8\"\r\n        },\r\n        \"taskName\": \"string\"\r\n      }\r\n    ],\r\n    \"entityRecognitionPiiTasks\": [\r\n      {\r\n        \"parameters\": {\r\n          \"domain\": \"none\",\r\n          \"model-version\": \"latest\",\r\n          \"loggingOptOut\": true,\r\n          \"piiCategories\": [\r\n            \"ABARoutingNumber\"\r\n          ],\r\n          \"stringIndexType\": \"TextElement_v8\"\r\n        },\r\n        \"taskName\": \"string\"\r\n      }\r\n    ],\r\n    \"keyPhraseExtractionTasks\": [\r\n      {\r\n        \"parameters\": {\r\n          \"model-version\": \"latest\",\r\n          \"loggingOptOut\": true\r\n        },\r\n        \"taskName\": \"string\"\r\n      }\r\n    ],\r\n    \"entityLinkingTasks\": [\r\n      {\r\n        \"parameters\": {\r\n          \"model-version\": \"latest\",\r\n          \"loggingOptOut\": false,\r\n          \"stringIndexType\": \"TextElement_v8\"\r\n        },\r\n        \"taskName\": \"string\"\r\n      }\r\n    ],\r\n    \"sentimentAnalysisTasks\": [\r\n      {\r\n        \"parameters\": {\r\n          \"model-version\": \"latest\",\r\n          \"loggingOptOut\": false,\r\n          \"opinionMining\": true,\r\n          \"stringIndexType\": \"TextElement_v8\"\r\n        },\r\n        \"taskName\": \"string\"\r\n      }\r\n    ],\r\n    \"extractiveSummarizationTasks\": [\r\n      {\r\n        \"parameters\": {\r\n          \"model-version\": \"latest\",\r\n          \"loggingOptOut\": false,\r\n          \"stringIndexType\": \"TextElement_v8\",\r\n          \"sentenceCount\": 3,\r\n          \"sortBy\": \"Offset\"\r\n        }\r\n      }\r\n    ]\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/text/analytics/v3.2-preview.1/analyze",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"text",
+						"analytics",
+						"v3.2-preview.1",
+						"analyze"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Analyzed-Results",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://workathoncognitive.cognitiveservices.azure.com/text/analytics/v3.2-preview.1/analyze/jobs/a4f846ab-2c46-40c2-ba01-53e91843bd83",
+					"protocol": "https",
+					"host": [
+						"workathoncognitive",
+						"cognitiveservices",
+						"azure",
+						"com"
+					],
+					"path": [
+						"text",
+						"analytics",
+						"v3.2-preview.1",
+						"analyze",
+						"jobs",
+						"a4f846ab-2c46-40c2-ba01-53e91843bd83"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Detect Language",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"documents\": [\r\n    {\r\n      \"id\": \"1\",\r\n      \"text\": \"आपका नाम क्या हे?\"\r\n    },\r\n    {\r\n      \"id\": \"2\",\r\n      \"text\": \"ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/text/analytics/v3.2-preview.1/languages",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"text",
+						"analytics",
+						"v3.2-preview.1",
+						"languages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sentiment Analysis",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"documents\": [\r\n            {\r\n                \"id\": \"doc1\",\r\n                \"text\": \"It's been great learning Cognitive Services from these labs! I have learnt Computer Vision, Custom Vision, Form Recognizer,Face Service and a lot of other Azure Cognitive Services!\",\r\n                \"language\": \"en\"\r\n            }\r\n        ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{endpoint}}/text/analytics/v3.2-preview.1/sentiment?opinionMining=true",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"text",
+						"analytics",
+						"v3.2-preview.1",
+						"sentiment"
+					],
+					"query": [
+						{
+							"key": "opinionMining",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sentiment Analytics from Container",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{key}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"documents\": [\r\n        {\r\n            \"language\": \"en\",\r\n            \"id\": \"1\",\r\n            \"text\": \"Hi this is workathon lab by Anupreet and Shiva. Hope you are enjoying the learning experience.\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/text/analytics/v3.0/sentiment?model-version=latest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"text",
+						"analytics",
+						"v3.0",
+						"sentiment"
+					],
+					"query": [
+						{
+							"key": "model-version",
+							"value": "latest"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
