@@ -1,0 +1,365 @@
+{
+	"info": {
+		"_postman_id": "0b59495e-e578-40b5-8e07-3149c5763ef1",
+		"name": "TextTranslator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Translate - multilingual",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{translator-key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=UTF-8",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Region",
+						"value": "centralindia",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\"Text\":\"Hello, what is your name?\"}\r\n]"
+				},
+				"url": {
+					"raw": "{{text-translator}}/translate?api-version=3.0&to=hi,kn,ta,pa&includeSentenceLength=true",
+					"host": [
+						"{{text-translator}}"
+					],
+					"path": [
+						"translate"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "3.0"
+						},
+						{
+							"key": "to",
+							"value": "hi,kn,ta,pa"
+						},
+						{
+							"key": "includeSentenceLength",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dictionary Lookup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{translator-key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Region",
+						"value": "centralindia",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\"Text\":\"Watch\"},\r\n    {\"Text\":\"play\"}\r\n]"
+				},
+				"url": {
+					"raw": "{{text-translator}}/dictionary/lookup?api-version=3.0&from=en&to=hi",
+					"host": [
+						"{{text-translator}}"
+					],
+					"path": [
+						"dictionary",
+						"lookup"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "3.0"
+						},
+						{
+							"key": "from",
+							"value": "en"
+						},
+						{
+							"key": "to",
+							"value": "hi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Translate + Transliterate - Indian vernacular",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{translator-key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Region",
+						"value": "centralindia",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\"Text\":\"नमस्कार\"}\r\n    //{\"Text\":\"घड़ी\"},\r\n    //{\"Text\" : \"पति\"}\r\n]"
+				},
+				"url": {
+					"raw": "{{text-translator}}/translate?api-version=3.0&to=pa&toScript=latn&from=hi",
+					"host": [
+						"{{text-translator}}"
+					],
+					"path": [
+						"translate"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "3.0"
+						},
+						{
+							"key": "to",
+							"value": "pa"
+						},
+						{
+							"key": "toScript",
+							"value": "latn"
+						},
+						{
+							"key": "from",
+							"value": "hi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document Translator",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{translator-key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Region",
+						"value": "centralindia",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"inputs\": [\r\n        {   \"storageType\": \"File\",\r\n            \"source\": {\r\n                \"sourceUrl\": \"https://workathonstorage.blob.core.windows.net/text-translator/source/Sample cognitive ppt.pptx?sp=racwdl&st=2021-08-16T11:32:37Z&se=2022-03-31T11:32:00Z&sv=2020-08-04&sr=c&sig=hPDgvMom7oInXAje%2FGPBtMSTiDaOlPHultNCm2OcpQM%3D\"\r\n            },\r\n            \"targets\": [\r\n                {\r\n                    \"targetUrl\": \"https://workathonstorage.blob.core.windows.net/text-translator/target/cognitive-gu.pptx?sp=racwdl&st=2021-08-16T10:53:45Z&se=2022-03-31T10:53:00Z&sv=2020-08-04&sr=c&sig=tt4YuYvfYRuRXNRHTYi%2FzIpGik0Zmqbs0WvyUvAVkik%3D\",\r\n                    \"language\": \"gu\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{doc-translator}}/translator/text/batch/v1.0/batches",
+					"host": [
+						"{{doc-translator}}"
+					],
+					"path": [
+						"translator",
+						"text",
+						"batch",
+						"v1.0",
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET document translation status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{translator-key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://workathontranslator.cognitiveservices.azure.com/translator/text/batch/v1.0/batches/e4d14f4b-62d3-463e-aec0-cf092940aed8",
+					"protocol": "https",
+					"host": [
+						"workathontranslator",
+						"cognitiveservices",
+						"azure",
+						"com"
+					],
+					"path": [
+						"translator",
+						"text",
+						"batch",
+						"v1.0",
+						"batches",
+						"e4d14f4b-62d3-463e-aec0-cf092940aed8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Document Translator - generate multiple documents",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{translator-key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Region",
+						"value": "centralindia",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"inputs\": [\r\n        {   \"storageType\": \"File\",\r\n            \"source\": {\r\n                \"sourceUrl\": \"https://workathonstorage.blob.core.windows.net/text-translator/source/Sample cognitive ppt.pptx?sp=racwdl&st=2021-08-16T11:32:37Z&se=2022-03-31T11:32:00Z&sv=2020-08-04&sr=c&sig=hPDgvMom7oInXAje%2FGPBtMSTiDaOlPHultNCm2OcpQM%3D\"\r\n            },\r\n            \"targets\": [\r\n                {\r\n                    \"targetUrl\": \"https://workathonstorage.blob.core.windows.net/text-translator/target/cognitive-hi.pptx?sp=racwdl&st=2021-08-16T10:53:45Z&se=2022-03-31T10:53:00Z&sv=2020-08-04&sr=c&sig=tt4YuYvfYRuRXNRHTYi%2FzIpGik0Zmqbs0WvyUvAVkik%3D\",\r\n                    \"language\": \"hi\"\r\n                },\r\n                {\r\n                    \"targetUrl\": \"https://workathonstorage.blob.core.windows.net/text-translator/target/cognitive-pa.pptx?sp=racwdl&st=2021-08-16T10:53:45Z&se=2022-03-31T10:53:00Z&sv=2020-08-04&sr=c&sig=tt4YuYvfYRuRXNRHTYi%2FzIpGik0Zmqbs0WvyUvAVkik%3D\",\r\n                    \"language\": \"pa\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{doc-translator}}/translator/text/batch/v1.0/batches",
+					"host": [
+						"{{doc-translator}}"
+					],
+					"path": [
+						"translator",
+						"text",
+						"batch",
+						"v1.0",
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Translate - custom-model-translator",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{translator-key}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=UTF-8",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Region",
+						"value": "centralindia",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n   {\"Text\":\"United States, watch, computer, Fossil, CO, overseas\"}\r\n]"
+				},
+				"url": {
+					"raw": "{{text-translator}}/translate?api-version=3.0&to=hi&includeSentenceLength=true&Category=da489884-ac06-4fd1-8362-61a836d0791a-SHOPPNG",
+					"host": [
+						"{{text-translator}}"
+					],
+					"path": [
+						"translate"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "3.0"
+						},
+						{
+							"key": "to",
+							"value": "hi"
+						},
+						{
+							"key": "includeSentenceLength",
+							"value": "true"
+						},
+						{
+							"key": "Category",
+							"value": "da489884-ac06-4fd1-8362-61a836d0791a-SHOPPNG"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
