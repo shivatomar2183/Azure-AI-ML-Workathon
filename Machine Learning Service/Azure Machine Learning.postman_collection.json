@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "0704bb4d-284d-4f4d-b7c9-5d5c33c96c5e",
+		"name": "Azure Machine Learning",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test Deployment on ACI",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"data\" : [[38,16,500,1,7,3,0,0,0,0,0]\r\n}"
+				},
+				"url": {
+					"raw": "http://90d1c7d3-22d6-4ba7-a6a6-df9068e04269.centralindia.azurecontainer.io/score",
+					"protocol": "http",
+					"host": [
+						"90d1c7d3-22d6-4ba7-a6a6-df9068e04269",
+						"centralindia",
+						"azurecontainer",
+						"io"
+					],
+					"path": [
+						"score"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
