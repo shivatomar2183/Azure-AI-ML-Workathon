@@ -22,7 +22,7 @@ Once you have completed the workshops you will be absolutely comfortable leverag
 ## Pre-requisites
 1.	Have an [active Azure Subscription](https://azure.microsoft.com/en-in/free) [For most services, you can create a free Cognitive Service account by following the steps in the workshop. However, some features might require you to create a Pay-as-you-go account].
 2.	Download [Postman Desktop application](https://www.postman.com/downloads).
-3.	Download the repository to be easily access the data files and copy code snippets from the PDF file.
+3.	Download the repository to easily access the data files and copy code snippets from the PDF file.
 
 ## Start exploring the AI-ML services
 1.	Start by exploring the standalone services first. Explore & try out each feature as shown in the workshop. 
